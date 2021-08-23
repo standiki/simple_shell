@@ -1,40 +1,33 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
-
+#include "Jtobyy.h"
 
 /**
-*main - splits a string using a delimiter
-*@argc: no of command line arguments
-*@argv: NULL terminating array of cmd line arguments
-*Return: Always 0
+*split - splits a string using a delimiter
+*@str: string to work on
+*@del: delimiter to use
+*Return: pointer to array where
+*tokens(separated strings) are stored
 */
-int main(int argc, char *argv[])
+char **split(char *str, char *del)
 {
 int i;
-char *str;
 char *c;
 char **arr;
-if (argc != 3)
-{
-dprintf(STDERR_FILENO, "usage: exec_file string del\n");
+char *tmp;
+if (!str || !del)
 exit(98);
-}
-str = argv[1];
 i = 0;
 while (str[i] != '\0')
 i++;
-arr = malloc(sizeof(char *) * i);
-for (i = 0; ; i++, str = NULL)
+arr = malloc(sizeof(*str) * i);
+if (arr == NULL)
+exit(99);
+tmp = strdup(str);
+for (i = 0; ; i++, tmp = NULL)
 {
-c = strtok(str, argv[2]);
+c = strtok(tmp, del);
 arr[i] = c;
 if (c == NULL)
 break;
-printf("%s", arr[i]);
 }
-putchar('\n');
-return (0);
+return (arr);
 }
