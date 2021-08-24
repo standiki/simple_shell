@@ -8,7 +8,7 @@ int main(void)
 {
 int i;
 char **arr;
-arr = split("CHECKING:CHECKING:CHECKING", ":");
+arr = split("CHECKING CHECKING CHECKING\n", "\n");
 for (i = 0; arr[i] != NULL; i++)
 printf("%s\n", arr[i]);
 return (0);
