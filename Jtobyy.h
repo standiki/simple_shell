@@ -19,6 +19,7 @@ struct arg_list *next;
 arg_list *linktoken(char *str, char *del);
 char **linktolist(arg_list *head);
 char **split(char *str, char *del);
-
+void checksignal(char *str);
+char *doinitials(void);
 
 #endif /* _SIMPLE_SHELL_H */

@@ -11,7 +11,6 @@ int main(int argc, char **argv)
 {
 int i;
 int w;
-size_t n;
 char *lineptr;
 char **args;
 arg_list *head;
@@ -22,14 +21,7 @@ exit(97);
 }
 for (i = 0; ; i++)
 {
-write(STDOUT_FILENO, "$ ", 2);
-lineptr = NULL;
-n = getline(&lineptr, &n, stdin);
-if (n == (size_t)-1)
-{
-free(lineptr);
-break;
-}
+lineptr = doinitials();
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
 if (fork() == 0)
@@ -42,10 +34,7 @@ exit(99);
 }
 }
 else
-{
 wait(&w);
-free(lineptr);
-}
 }
 free(lineptr);
 return (0);
@@ -111,4 +100,45 @@ buf[i] = NULL;
 for (i = i - 1; i >= 0; i--, tmp = tmp->next)
 buf[i] = strdup(tmp->token);
 return (buf);
+}
+
+/**
+ *checksignal - exits the shell
+ *@str: command
+ *Return: void
+ */
+void checksignal(char *str)
+{
+int i;
+char ex[] = "exit";
+i = 0;
+while (i < 4)
+{
+if (str[i] != ex[i])
+return;
+i++;
+}
+exit(99);
+return;
+}
+
+/**
+ *doinitials - do the initial sequence of things
+ *for the loop in question. This function is only here
+ *to keep in line with betty 40 line code requirement
+ *Return: void
+ */
+char *doinitials(void)
+{
+size_t n;
+char *lineptr;
+write(STDOUT_FILENO, "$ ", 2);
+n = getline(&lineptr, &n, stdin);
+checksignal(lineptr);
+if (n == (size_t)-1)
+{
+free(lineptr);
+exit(100);
+}
+return (lineptr);
 }
