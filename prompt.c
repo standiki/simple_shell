@@ -1,4 +1,4 @@
-#include "_SIMPLE_SHELL_H"
+#include "shell.h"
 
 /**
  * prompt - Function that print shell prompt
