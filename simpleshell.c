@@ -1,4 +1,5 @@
 #include "Jtobyy.h"
+#include "shell.h"
 
 /**
  *main - a first version of a super simple shell
@@ -22,6 +23,8 @@ exit(97);
 for (i = 0; ; i++)
 {
 lineptr = doinitials();
+if (checksignal(lineptr) == 0)
+continue;
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
 if (fork() == 0)
@@ -103,26 +106,6 @@ return (buf);
 }
 
 /**
- *checksignal - exits the shell
- *@str: command
- *Return: void
- */
-void checksignal(char *str)
-{
-int i;
-char ex[] = "exit";
-i = 0;
-while (i < 4)
-{
-if (str[i] != ex[i])
-return;
-i++;
-}
-exit(99);
-return;
-}
-
-/**
  *doinitials - do the initial sequence of things
  *for the loop in question. This function is only here
  *to keep in line with betty 40 line code requirement
@@ -132,9 +115,8 @@ char *doinitials(void)
 {
 size_t n;
 char *lineptr;
-write(STDOUT_FILENO, "$ ", 2);
+prompt();
 n = getline(&lineptr, &n, stdin);
-checksignal(lineptr);
 if (n == (size_t)-1)
 {
 free(lineptr);
@@ -142,3 +124,22 @@ exit(100);
 }
 return (lineptr);
 }
+
+/**
+ *checksignal - exits the shell
+ *@str: command
+ *Return: 0 on success
+ */
+int checksignal(char *str)
+{
+if (str[0] == 'e' && str[1] == 'n' && str[2] == 'v')
+{
+print_env();
+return (0);
+}
+else if (str[0] == 'e' && str[1] == 'x' && str[2] == 'i'
+&& str[3] == 't')
+exit(99);
+return (-1);
+}
+

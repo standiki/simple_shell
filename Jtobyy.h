@@ -1,6 +1,17 @@
 #ifndef _SIMPLE_SHELL_H
 #define _SIMPLE_SHELL_H
 
+/**
+ *struct arg_list - singly linked list of argument element
+ *or rather an string returned by strtok
+ *@token: a string
+ *@next: pointer to the next string/node
+ *
+ *Description: it connects each string returned by strtok
+ *to each other which allows for storing elments
+ *withot prior knowledge of the amount of elements to store
+ *for simple shell project
+ */
 typedef struct arg_list
 {
 char *token;
@@ -19,7 +30,7 @@ struct arg_list *next;
 arg_list *linktoken(char *str, char *del);
 char **linktolist(arg_list *head);
 char **split(char *str, char *del);
-void checksignal(char *str);
+int checksignal(char *str);
 char *doinitials(void);
 
 #endif /* _SIMPLE_SHELL_H */
