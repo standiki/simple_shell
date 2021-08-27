@@ -1,31 +1,61 @@
-#ifndef _SIMPLE_SHELL_H
-#define _SIMPLE_SHELL_H
+#ifndef SIMPLE_SHELL_H
+#define SIMPLE_SHELL_H
 
-/* include library */
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <signal.h>
+#include <unistd.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <sys/types.h>
+#include <time.h>
+#include <stdbool.h>
 
-/* Variables  */
+/* env variables */
 extern char **environ;
+extern __sighandler_t signal(int __sig, __sighandler_t __handler);
 
-/* putchar prototype */
-int _putchar(char c);
+/* handle built ins */
+int checker(char **cmd, char *buf);
+void prompt_user(void);
+void handle_signal(int m);
+char **tokenizer(char *line);
+char *test_path(char **path, char *command);
+char *append_path(char *path, char *command);
+int handle_builtin(char **command, char *line);
+void exit_cmd(char **command, char *line);
 
-/* Strings */
-char *_strdup(char *str);
+void print_env(void);
 
-/* Shell */
-void prompt(void);
-void process(char *buffer);
-char **str_to_arrays(char *buffer_str);
+/* str handlers */
+int _strcmp(char *s1, char *s2);
+int _strlen(char *s);
+int _strncmp(char *s1, char *s2, int n);
+char *_strdup(char *s);
+char *_strchr(char *s, char c);
 
-/* Util */
-void msgerr(const char *str, int status);
+void execution(char *cp, char **cmd);
+char *find_path(void);
 
-#endif /* #ifndef _SIMPLE_SHELL_H */
+/* helper function for buff */
+void free_buffers(char **buf);
+
+struct builtin
+{
+	char *env;
+	char *exit;
+} builtin;
+
+struct info
+{
+	int final_exit;
+	int ln_count;
+} info;
+
+struct flags
+{
+	bool interactive;
+} flags;
+
+#endif /* #ifndef SIMPLE_SHELL_H */
