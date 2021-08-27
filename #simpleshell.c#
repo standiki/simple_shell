@@ -27,7 +27,7 @@ if (checksignal(lineptr) == 0)
 continue;
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
-if (checkpathname(args[0]) != 0)
+if (_which(args[0]) != 0)
 continue;
 if (fork() == 0)
 {
