@@ -12,6 +12,7 @@ int main(int argc, char **argv)
 {
 int i;
 int w;
+int j;
 char *lineptr;
 char **args;
 arg_list *head;
@@ -24,20 +25,26 @@ for (i = 0; ; i++)
 {
 lineptr = doinitials();
 if (checksignal(lineptr) == 0 || *lineptr == '\n')
+{
+free(lineptr);
 continue;
+}
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
 if (fork() == 0)
 {
 if (execve(args[0], args, NULL) == -1)
 {
-free(head);
+free_list(head);
+free(lineptr);
 perror(argv[0]);
 exit(99);
 }
 }
 else
 wait(&w);
+free_list(head);
+continue;
 }
 return (0);
 }
@@ -75,6 +82,7 @@ el->next = head;
 head = el;
 }
 }
+free(str);
 return (head);
 }
 
