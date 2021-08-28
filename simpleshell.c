@@ -23,7 +23,7 @@ exit(97);
 for (i = 0; ; i++)
 {
 lineptr = doinitials();
-if (checksignal(lineptr) == 0)
+if (checksignal(lineptr) == 0 || *lineptr == '\n')
 continue;
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
@@ -114,7 +114,6 @@ char *doinitials(void)
 {
 size_t n;
 char *lineptr;
-/*prompt();*/
 n = getline(&lineptr, &n, stdin);
 if (n == (size_t)-1)
 exit(0);

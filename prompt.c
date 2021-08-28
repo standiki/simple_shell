@@ -8,7 +8,7 @@
  */
 void prompt(void)
 {
-char name[] = "#cisfun$ ";
+char name[] = "$ ";
 int i = 0;
 while (name[i])
 {
