@@ -1,4 +1,4 @@
-#include "Jtobyy.h"
+#include "main.h"
 
 /**
 *split - splits a string using a delimiter

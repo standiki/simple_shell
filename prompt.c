@@ -1,5 +1,5 @@
-#include "shell.h"
-#include "Jtobyy.h"
+#include "main.h"
+#include "holberton.h"
 
 /**
  * prompt - Function that print shell prompt

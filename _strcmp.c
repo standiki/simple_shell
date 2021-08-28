@@ -1,5 +1,5 @@
-#include "Jtobyy.h"
-#include "shell.h"
+#include "main.h"
+#include "holberton.h"
 
 /**
  *_strcmp - compares two strings

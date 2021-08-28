@@ -2,17 +2,23 @@
 #include "holberton.h"
 
 /**
- * _strcpy - copies the string pointed to by src including terminating
- *null byte(\0), to the buffer pointed to by dest.
+ * _strdup - duplicates the string pointed to by src including terminating
+ *null byte(\0)
  *@dest: destination
  *@src: source
  *Return: pointer to destination
  */
-char *_strcpy(char *dest, char *src)
+char *_strdup(char *src)
 {
 int i;
-int tmp;
+int j;
+char tmp;
+char *dest;
 i = 0;
+j = 0;
+while (*(src + j) != 0)
+j++;
+dest = malloc(sizeof(char) * (j + 1));
 while (*(src + i) != 0)
 {
 tmp = *(src + i);

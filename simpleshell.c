@@ -1,5 +1,5 @@
-#include "Jtobyy.h"
-#include "shell.h"
+#include "main.h"
+#include "holberton.h"
 
 /**
  *main - super simple shell
@@ -23,7 +23,7 @@ exit(97);
 }
 for (i = 0; ; i++)
 {
-lineptr = doinitials();
+lineptr = doinitials(lineptr);
 if (checksignal(lineptr) == 0 || *lineptr == '\n')
 {
 free(lineptr);
@@ -31,20 +31,31 @@ continue;
 }
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
+free_list(head);
+j = 0;
 if (fork() == 0)
 {
 if (execve(args[0], args, NULL) == -1)
 {
-free_list(head);
-free(lineptr);
+while(args[j] != NULL)
+{
+free(args[j]);
+j++;
+}
 perror(argv[0]);
 exit(99);
 }
 }
 else
+{
+while(args[j] != NULL)
+{
+free(args[j]);
+j++;
+}
 wait(&w);
-free_list(head);
 continue;
+}
 }
 return (0);
 }
@@ -108,7 +119,7 @@ exit(98);
 tmp = head;
 buf[i] = NULL;
 for (i = i - 1; i >= 0; i--, tmp = tmp->next)
-buf[i] = strdup(tmp->token);
+buf[i] = _strdup(tmp->token);
 return (buf);
 }
 
@@ -118,13 +129,17 @@ return (buf);
  *to keep in line with betty 40 line code requirement
  *Return: void
  */
-char *doinitials(void)
+char *doinitials(char *lineptr)
 {
 size_t n;
-char *lineptr;
+n = 1;
+lineptr = malloc(sizeof(*lineptr) * n);
 n = getline(&lineptr, &n, stdin);
 if (n == (size_t)-1)
+{
+free(lineptr);
 exit(0);
+}
 return (lineptr);
 }
 
@@ -142,6 +157,9 @@ return (0);
 }
 else if (str[0] == 'e' && str[1] == 'x' && str[2] == 'i'
 && str[3] == 't')
+{
+free(str);
 exit(99);
+}
 return (-1);
 }
