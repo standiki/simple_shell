@@ -27,7 +27,7 @@ if (checksignal(lineptr) == 0)
 continue;
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
-if (_which(args[0]) != 0)
+/*if (checkpathname(args[0]) != 0)*/
 continue;
 if (fork() == 0)
 {
@@ -117,7 +117,7 @@ char *doinitials(void)
 {
 size_t n;
 char *lineptr;
-prompt();
+/*prompt();*/
 n = getline(&lineptr, &n, stdin);
 if (n == (size_t)-1)
 {

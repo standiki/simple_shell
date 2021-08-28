@@ -27,8 +27,6 @@ if (checksignal(lineptr) == 0)
 continue;
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
-if (checkpathname(args[0]) != 0)
-continue;
 if (fork() == 0)
 {
 if (execve(args[0], args, NULL) == -1)
@@ -117,7 +115,7 @@ char *doinitials(void)
 {
 size_t n;
 char *lineptr;
-prompt();
+/*prompt();*/
 n = getline(&lineptr, &n, stdin);
 if (n == (size_t)-1)
 {
@@ -144,4 +142,3 @@ else if (str[0] == 'e' && str[1] == 'x' && str[2] == 'i'
 exit(99);
 return (-1);
 }
-
