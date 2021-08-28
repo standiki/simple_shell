@@ -37,7 +37,7 @@ exit(99);
 }
 }
 else
-waitpid(0, &w, WNOHANG);
+wait(&w);
 }
 return (0);
 }
