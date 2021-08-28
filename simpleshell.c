@@ -2,7 +2,7 @@
 #include "shell.h"
 
 /**
- *main - a first version of a super simple shell
+ *main - super simple shell
  *that can run commands with their full path, without any argument.
  *@argc: number of command line arguments
  *@argv: array of command line arguments
@@ -31,15 +31,14 @@ if (fork() == 0)
 {
 if (execve(args[0], args, NULL) == -1)
 {
-free(lineptr);
+free(head);
 perror(argv[0]);
 exit(99);
 }
 }
 else
-wait(&w);
+waitpid(0, &w, WNOHANG);
 }
-free(lineptr);
 return (0);
 }
 
@@ -118,10 +117,7 @@ char *lineptr;
 /*prompt();*/
 n = getline(&lineptr, &n, stdin);
 if (n == (size_t)-1)
-{
-free(lineptr);
-exit(100);
-}
+exit(0);
 return (lineptr);
 }
 
