@@ -106,7 +106,6 @@ return (head);
 char **linktolist(arg_list *head)
 {
 int i;
-int j;
 arg_list *tmp;
 char **buf;
 tmp = head;
@@ -117,7 +116,6 @@ if (buf == NULL)
 exit(98);
 tmp = head;
 buf[i] = NULL; 
-j = i+1;
 for (i = i - 1; i >= 0; i--, tmp = tmp->next)
 buf[i] = strdup(tmp->token);
 return (buf);
