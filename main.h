@@ -39,5 +39,6 @@ int _strcmp(char *s1, char *s2);
 int checkpathname(char *dir);
 void free_list(arg_list *head);
 char *_strdup(char *src);
+int print_list(arg_list *h);
 
 #endif /* _SIMPLE_SHELL_H */

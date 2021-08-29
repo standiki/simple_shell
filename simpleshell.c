@@ -31,7 +31,6 @@ continue;
 }
 head = linktoken(lineptr, " \n");
 args = linktolist(head);
-free_list(head);
 j = 0;
 if (fork() == 0)
 {
@@ -93,7 +92,6 @@ el->next = head;
 head = el;
 }
 }
-free(str);
 return (head);
 }
 
@@ -108,18 +106,20 @@ return (head);
 char **linktolist(arg_list *head)
 {
 int i;
+int j;
 arg_list *tmp;
 char **buf;
 tmp = head;
 for (i = 0; tmp != NULL; i++, tmp = tmp->next)
 continue;
-buf = malloc(sizeof(*buf) * (i + 1));
+buf = malloc(sizeof(char *) * (i + 1));
 if (buf == NULL)
 exit(98);
 tmp = head;
-buf[i] = NULL;
+buf[i] = NULL; 
+j = i+1;
 for (i = i - 1; i >= 0; i--, tmp = tmp->next)
-buf[i] = _strdup(tmp->token);
+buf[i] = strdup(tmp->token);
 return (buf);
 }
 
@@ -134,6 +134,8 @@ char *doinitials(char *lineptr)
 size_t n;
 n = 1;
 lineptr = malloc(sizeof(*lineptr) * n);
+if (isatty(STDIN_FILENO))
+prompt();
 n = getline(&lineptr, &n, stdin);
 if (n == (size_t)-1)
 {
