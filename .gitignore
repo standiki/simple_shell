@@ -1,3 +1,6 @@
 # Rule to ignore all files whose name end with a tilde (~)
 $ cat .gitignore
 *~
+#*
+*.o
+core

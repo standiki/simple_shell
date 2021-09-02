@@ -32,6 +32,7 @@ if (fork() == 0)
 if (execve(execbuf[0], execbuf, NULL) == -1)
 {
 free(execbuf[0]);
+_exit(w);
 continue;
 }
 }
