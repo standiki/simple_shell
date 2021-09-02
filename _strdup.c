@@ -4,7 +4,6 @@
 /**
  * _strdup - duplicates the string pointed to by src including terminating
  *null byte(\0)
- *@dest: destination
  *@src: source
  *Return: pointer to destination
  */
@@ -14,6 +13,8 @@ int i;
 int j;
 char tmp;
 char *dest;
+if (src == NULL)
+return (NULL);
 i = 0;
 j = 0;
 while (*(src + j) != 0)

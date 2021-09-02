@@ -32,7 +32,7 @@ arg_list *linktoken(char *str, char *del);
 char **linktolist(arg_list *head);
 char **split(char *str, char *del);
 int checksignal(char *str);
-char *doinitials(char *);
+char *doinitials(char *, size_t);
 char *_getenv(char *name);
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
