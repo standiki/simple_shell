@@ -3,11 +3,9 @@
 
 /**
  *main - super simple shell
- *@argc: ........
- *@argv: ..........
  *Return: always 0
  */
-int main(int argc, char *argv[])
+int main(void)
 {
 size_t n;
 int c;
@@ -15,8 +13,6 @@ int i;
 int w;
 char *lineptr;
 char *execbuf[2];
-if (argc != 1)
-return (0);
 for (i = 0; ; i++)
 {
 if (isatty(STDIN_FILENO))
@@ -35,7 +31,7 @@ if (fork() == 0)
 {
 if (execve(execbuf[0], execbuf, NULL) == -1)
 {
-free(lineptr);
+free(execbuf[0]);
 continue;
 }
 }

@@ -25,6 +25,7 @@ struct arg_list *next;
 #include <sys/types.h>
 #include <unistd.h>
 #include <wait.h>
+#include <signal.h>
 
 
 arg_list *linktoken(char *str, char *del);
