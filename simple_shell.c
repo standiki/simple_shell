@@ -66,6 +66,12 @@ exit(0);
 }
 tmp = NULL;
 tmp = _strdup(strtok(lineptr, " \n"));
+if (strtok(NULL, " \n") != NULL)
+{
+free(lineptr);
+free(tmp);
+return (NULL);
+}
 free(lineptr);
 return (tmp);
 }
